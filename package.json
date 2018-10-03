@@ -1,0 +1,23 @@
+{
+  "name": "crm",
+  "version": "0.0.1",
+  "description": "CRM Moldegama",
+  "main": "index.js",
+  "scripts": {
+	"start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JorgeCarmo/crm.git"
+  },
+  "author": "Jorge Carmo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JorgeCarmo/crm/issues"
+  },
+  "homepage": "https://github.com/JorgeCarmo/crm#readme",
+  "devDependencies": {
+    "electron": "^3.0.2"
+  }
+}
