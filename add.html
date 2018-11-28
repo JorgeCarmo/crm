@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html>
+<link rel="stylesheet" type="text/css" href="add.css">
+<body>
+
+    <div class="row">
+        <div class="column">
+            <h1>Adding Page</h1>
+            Number:<br>
+            <input type="text" id="number" name="number"><br>
+            Startdate:<br>
+            <input type="date" id="startdate" name="startdate"><br>
+            Enddate:<br>
+            <input type="date" id="enddate" name="enddate"><br>
+            Type:<br>
+            <select id="type" name="type">
+                <option value="Cotação">Cotação</option>
+                <option value="nao">nao</option>
+                <option value="sei">sei</option>
+                <option value="mais">mais</option>
+            </select><br>
+            Details:<br>
+            <input type="text" id="details" name="details"><br>
+            Contacto:<br>
+            <select id="contact" name="contact"></select> 
+            Cliente: <input type="checkbox" id="cliente" name="cliente" value="Cliente" />
+            <br>
+            <br>
+            <input type="button" id="addBtn" name="addBtn" value="Add" />
+            <input type="button" id="closeBtn" value="Close" />
+            <input type="button" id="openFolderBtn" onclick="openFile()" value="Open Folder" />
+            <input type="button" id="createPeca" onclick="createPeca()" value="Criar Peça" />
+        </div>
+        <div class="column">
+            <table class="greyGridTable" id="tableOut">
+                <thead>
+                    <tr>
+                        <th>Abrir</th>
+                        <th>Numero</th>
+                        <th>Nome</th>
+                        <th>CV</th>
+                        <th>Tipo de Peça</th>
+                        <th>Preço</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+
+
+
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script src="add.js"></script>

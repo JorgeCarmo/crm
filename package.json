@@ -4,7 +4,7 @@
   "description": "CRM Moldegama",
   "main": "index.js",
   "scripts": {
-	"start": "electron .",
+    "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +19,10 @@
   "homepage": "https://github.com/JorgeCarmo/crm#readme",
   "devDependencies": {
     "electron": "^3.0.2"
+  },
+  "dependencies": {
+    "activedirectory": "^0.7.2",
+    "fs-extra": "^7.0.0",
+    "mysql": "^2.16.0"
   }
 }

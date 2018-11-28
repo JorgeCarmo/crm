@@ -1,13 +1,97 @@
-<!DOCTYPE html>
-  <html>
-    <head>
-      <meta charset="UTF-8">
-      <title>Hello World!</title>
-    </head>
-    <body>
-      <h1>Hello World!</h1>
-      We are using node <script>document.write(process.versions.node)</script>,
-      Chrome <script>document.write(process.versions.chrome)</script>,
-      and Electron <script>document.write(process.versions.electron)</script>.
-    </body>
-  </html>
+﻿<!DOCTYPE html>
+<html>
+<link rel="stylesheet" type="text/css" href="index.css">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+</head>
+<body>
+    <h1>Connecting to MySQL</h1>
+    <br>
+    <input type="button" id="action-btn" value="Update database" />
+    <input type="button" onclick="newWindow()" href="#" value="Add new item to database" />
+
+    <input type="button" onclick="new newContact()" href="#" value="Create Contact" />
+    <table class="greyGridTable" id="tableOut">
+        <thead>
+            <tr>
+                <th>Abrir</th>
+                <th>Pasta</th>
+                <th>ID</th>
+                <th>Data de Inicio</th>
+                <th>Data de fim</th>
+                <th>Detalhes</th>
+                <th>Tipo</th>
+                <th>Contacto</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</body>
+<script src="index.js"></script>
+<script>
+
+    function loadTable() {
+        getFirstTenRows(function (rows) {
+            getAllContacts(function (contRows) {
+            var html = '';
+
+            rows.forEach(function (row) {
+                html += '<tr>';
+                html += '<td>';
+                html += '<input type="button" onclick = "newInfoWindow(' + row.id + ')" value="Open" />';
+                html += '</td>';
+                html += '<td>';
+                var path = row.path;
+                if (isRealValue(path)) {
+                    html += '<input type="button" onclick = "openFolder(\'' + path.split('\\').join('\\\\') + '\')" value="Open Folder" />';
+                } else {
+                    html += '<input type="button" onclick = "" value="Open Folder" disabled/>';
+                }
+                html += '</td>';
+                html += '<td>';
+                html += row.id;
+                html += '</td>';
+                html += '<td>';
+                html += row.startdate;
+                html += '</td>';
+                html += '<td>';
+                html += row.enddate;
+                html += '</td>';
+                html += '<td>';
+                html += row.details;
+                html += '</td>';
+                html += '<td>';
+                html += row.type;
+                html += '</td>';
+                html += '<td>'; 
+
+
+                var contacts = contRows;
+                if (isRealValue(contacts[row.contact - 1])) {
+                    html += contacts[row.contact - 1].nome;
+                }
+
+                html += '</td>';
+                html += '</tr>';
+                console.log(row);
+            });
+
+            document.querySelector('#tableOut > tbody').innerHTML = html;
+        });
+        });
+        setTimeout(loadTable, 5000);
+    }
+
+    loadTable();
+    el('action-btn').addEventListener('click', function () {
+        // Get the mysql service
+        loadTable();
+    }, false);
+
+
+    start();
+</script>
+
+</html>
