@@ -2,24 +2,46 @@ const { app, BrowserWindow } = require('electron')
 
 const { shell } = require('electron')
 
+
+
   // Keep a global reference of the window object, if you don't, the window will
   // be closed automatically when the JavaScript object is garbage collected.
   let win
   
   function createWindow () {
     // Create the browser window.
-    win = new BrowserWindow({ width: 1281, height: 800, minWidth: 1281, minHeight: 800 })
-  
+      win = new BrowserWindow({ width: 1281, height: 800, minWidth: 1281, minHeight: 800 })
+
+      win.on('close', function (e) {
+          var choice = require('electron').dialog.showMessageBox(this,
+              {
+                  type: 'question',
+                  buttons: ['Yes', 'No'],
+                  title: 'Confirm',
+                  message: 'Are you sure you want to quit?'
+              });
+          if (choice == 1) {
+              e.preventDefault();
+          }
+      });
+
     // and load the index.html of the app.
     win.loadFile('index.html')
-  
+      win.openDevTools()
+      win.once('ready-to-show', () => {
+          win.show()
+      })
     // Emitted when the window is closed.
     win.on('closed', () => {
       // Dereference the window object, usually you would store windows
       // in an array if your app supports multi windows, this is the time
       // when you should delete the corresponding element.
       win = null
-    })
+      })
+
+      let login = new BrowserWindow({ width: 600, height: 400, frame: false, parent: win, resizable: false })
+      login.loadFile(`login.html`)
+      login.show()
   }
   
   // This method will be called when Electron has finished
@@ -54,12 +76,15 @@ function newContact(){
 }
 
 function newWindow() {
-    window.open('add.html', "", "height = 300,width = 300");
+
+    window.open('add.html');
+
 }
 
 function newInfoWindow(id) {
-    // main process
-    window.open('add.html?' + id, "", "height = 300,width = 300")
+
+    window.open('add.html ? '+ id);
+
 }
 
   // In this file you can include the rest of your app's specific main process
@@ -92,7 +117,7 @@ function getFirstTenRows(callback) {
     });
 
     // Perform a query
-    $query = 'SELECT `id`,`details`, `type`, `startdate`, `enddate`, `path`, `contact` FROM `crm`';
+    $query = 'SELECT `id`,`details`, `type`, `startdate`, `enddate`, `path`, `contact`, `visible` FROM `crm`';
 
     connection.query($query, function (err, rows, fields) {
         if (err) {
@@ -161,36 +186,4 @@ function getAllContacts(callback) {
 function isRealValue(obj) {
     return obj && obj !== 'null' && obj !== 'undefined';
 }
-
-
-
-function start() {
-
-    var ActiveDirectory = require('activedirectory');
-    var config = {
-        url: 'ldap://srvmg01.moldegama.local:389',
-        baseDN: 'OU=SBSUsers,OU=Users,OU=MyBusiness,DC=moldegama,DC=local',
-        username: 'jorgecarmo',
-        password: '!23456Jc'
-    }
-    var ad = new ActiveDirectory(config);
-    var username = 'jorgecarmo';
-    var password = '!23456Jc';
-
-    ad.authenticate(username, password, function (err, auth) {
-        if (err) {
-            console.log('ERROR: ' + JSON.stringify(err));
-            return;
-        }
-
-        if (auth) {
-            console.log('Authenticated!');
-        }
-        else {
-            console.log('Authentication failed!');
-        }
-    });
-
-}
-
 

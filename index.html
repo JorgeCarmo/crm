@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
-<link rel="stylesheet" type="text/css" href="index.css">
+<link rel="stylesheet" type="text/css" href="css/index.css">
 <head>
 
     <meta charset="UTF-8">
@@ -37,45 +37,47 @@
             getAllContacts(function (contRows) {
             var html = '';
 
-            rows.forEach(function (row) {
-                html += '<tr>';
-                html += '<td>';
-                html += '<input type="button" onclick = "newInfoWindow(' + row.id + ')" value="Open" />';
-                html += '</td>';
-                html += '<td>';
-                var path = row.path;
-                if (isRealValue(path)) {
-                    html += '<input type="button" onclick = "openFolder(\'' + path.split('\\').join('\\\\') + '\')" value="Open Folder" />';
-                } else {
-                    html += '<input type="button" onclick = "" value="Open Folder" disabled/>';
-                }
-                html += '</td>';
-                html += '<td>';
-                html += row.id;
-                html += '</td>';
-                html += '<td>';
-                html += row.startdate;
-                html += '</td>';
-                html += '<td>';
-                html += row.enddate;
-                html += '</td>';
-                html += '<td>';
-                html += row.details;
-                html += '</td>';
-                html += '<td>';
-                html += row.type;
-                html += '</td>';
-                html += '<td>'; 
+                rows.forEach(function (row) {
+                    if (row.visible == 1) {
+                        html += '<tr>';
+                        html += '<td>';
+                        html += '<input type="button" onclick = "newInfoWindow(' + row.id + ')" value="Open" />';
+                        html += '</td>';
+                        html += '<td>';
+                        var path = row.path;
+                        if (isRealValue(path)) {
+                            html += '<input type="button" onclick = "openFolder(\'' + path.split('\\').join('\\\\') + '\')" value="Open Folder" />';
+                        } else {
+                            html += '<input type="button" onclick = "" value="Open Folder" disabled/>';
+                        }
+                        html += '</td>';
+                        html += '<td>';
+                        html += row.id;
+                        html += '</td>';
+                        html += '<td>';
+                        html += row.startdate;
+                        html += '</td>';
+                        html += '<td>';
+                        html += row.enddate;
+                        html += '</td>';
+                        html += '<td>';
+                        html += row.details;
+                        html += '</td>';
+                        html += '<td>';
+                        html += row.type;
+                        html += '</td>';
+                        html += '<td>';
 
 
-                var contacts = contRows;
-                if (isRealValue(contacts[row.contact - 1])) {
-                    html += contacts[row.contact - 1].nome;
-                }
+                        var contacts = contRows;
+                        if (isRealValue(contacts[row.contact - 1])) {
+                            html += contacts[row.contact - 1].nome;
+                        }
 
-                html += '</td>';
-                html += '</tr>';
-                console.log(row);
+                        html += '</td>';
+                        html += '</tr>';
+                        console.log(row);
+                    }
             });
 
             document.querySelector('#tableOut > tbody').innerHTML = html;
@@ -90,8 +92,6 @@
         loadTable();
     }, false);
 
-
-    start();
 </script>
 
 </html>
